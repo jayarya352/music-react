@@ -11,7 +11,7 @@ import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 function App() {
   return (
     <BrowserRouter>
-    <div id="wrapper" data-scrollable="true">
+    <div id="wrapper" data-scrollable="true"> 
       <Sidebar />
       <main id="pageWrapper">
         <Header />  
