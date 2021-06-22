@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 
 function Songs() {
     return (
@@ -57,10 +58,10 @@ function Songs() {
                                     <img src="../assets/images/cover/large/1.jpg" alt="I Love You Mummy" className="card-img--radius-lg" />
                                 </a>
                             </div>
-                            <a href="song-details.html" className="custom-card--link mt-2">
+                            <Link to={"/songdetails/i-love-you-mummy"} className="custom-card--link mt-2">
                                 <h6>I Love You Mummy</h6>
                                 <p>Arebica Luna</p>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className="col-xl-3 col-lg-4 col-sm-6 pb-4">

@@ -58,10 +58,10 @@ function Home() {
                                     <img src="../assets/images/cover/large/1.jpg" alt="I Love You Mummy" className="card-img--radius-lg" />
                                 </a>
                             </div>
-                            <a href="song-details.html" className="custom-card--link mt-2">
+                            <Link to={"/songdetails/i-love-you-mummy"} className="custom-card--link mt-2">
                                 <h6>I Love You Mummy</h6>
                                 <p>Arebica Luna</p>
-                            </a>
+                            </Link>
                         </div>
                         <div className="custom-card">
                             <div className="custom-card--img">
@@ -284,7 +284,7 @@ function Home() {
                                 <h4>Featured Artists</h4>
                                 <p>Select you best to listen</p>
                             </div>
-                            <Link to={"/songs/featured-artists"} className="btn btn-sm btn-pill btn-air btn-primary">View All</Link>
+                            <Link to={"/artists/featured-artists"} className="btn btn-sm btn-pill btn-air btn-primary">View All</Link>
                         </div>
                         <hr />
                     </div>
