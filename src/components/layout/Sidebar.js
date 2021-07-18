@@ -32,7 +32,7 @@ function Sidebar() {
                         <a href="music.html" className="nav-link"><i className="la la-music" /><span>Free Music</span></a>
                     </li>
                     <li className="nav-item">
-                        <a href="artists.html" className="nav-link"><i className="la la-microphone" /><span>Artists</span></a>
+                        <Link to={'/artists'} className="nav-link"><i className="la la-microphone" /><span>Artists</span></Link>
                     </li>
                     <li className="nav-item">
                         <a href="stations.html" className="nav-link"><i className="la la-bullseye" /><span>Stations</span></a>
