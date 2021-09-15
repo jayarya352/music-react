@@ -22,7 +22,7 @@ function App() {
         
           <Switch>
             <Route exact path="/" ><Home/></Route>
-            <Route exact path="/songs/:name"><Songs/></Route>
+            <Route exact path="/songs/:name" render={(props) => <Songs {...props} />}></Route>
             {/* <Route exact path="/songs/:name" render={({ props }) => <Songs name={props.params.name}/>} /> */}
             <Route exact path="/songdetails/:name"><SongsDetails/></Route>
             <Route exact path="/artists"><Artists/></Route>

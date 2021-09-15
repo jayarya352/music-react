@@ -3,16 +3,6 @@ import { useParams } from 'react-router-dom';
 // import React, {useEffect, Component} from 'react';
 import React, { Component } from 'react'
 
-// const Songs = () => {
-//     const { name } = useParams();
-
-//     const [state, setState] = useState([])
-//     useEffect(() => {
-//         fetch('http://127.0.0.1:3000/home?name=latest').then(
-//             res => setState(res.data)
-//         )
-//     })
-
 class Songs extends Component {
     constructor(props) {
         super(props);
@@ -25,37 +15,21 @@ class Songs extends Component {
     }   
 
     componentDidMount() {
-        const apiUrl = 'http://127.0.0.1:3000/songs?name=latest';
+        const name = this.props.match.params.name;
+        const apiUrl = 'http://127.0.0.1:3000/songs?name='+name+'';
         
         fetch(apiUrl)
             .then(res => res.json())
             .then(res => this.setState({ lists: res }))
             .catch(() => this.setState({ error: true }));
-
-            
     }
 
     render() {
-        // const { error, lists } = this.state;
-        // console.log(this.props.match);
-        // const { name } = this.props.match.name;
-        
-        // useEffect(() => {
-        //     const url = 'http://localhost/music/api/home';
 
-        //     fetch(url,{
-        //         headers: new Headers({
-        //             'Access-Control-Allow-Origin': 'true',
-        //             'Access-Control-Allow-Headers': 'X-Requested-With'
-        //           }),
-        //     }).then(resp=>console.log(resp))
-        //     console.log(url);
-        // },[])
-        // const { name } = useParams();
         return (
             <div>
                 <div className="main-container" id="appRoute">
-                    <p>Param name: {name}</p>
+                    
                     <div className="row align-items-end">
                         <span className="col-6 font-weight-bold">5,012 Results</span>
                         <div className="col-6 ml-auto">
