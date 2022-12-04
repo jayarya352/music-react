@@ -1,6 +1,72 @@
-function AudioPlayer() {
+import react, { Component } from 'react';
+import Helper from '../../Helper';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../../custom.css';
+class AudioPlayer extends Component {
+    constructor() {
+        super()
+        this.state = {
+            visibility: false,
+            token: localStorage.getItem('_token'),
+            apiResponse: '',
+            error: false,
+            favouriteClass: '',
+            playlistVisibility:false
+        }
+    }
+
+    handleModal() {
+        this.setState({ visibility: true })
+    }
+    handlPlaylistModal() {
+        this.setState({ playlistVisibility: true })
+    }
+    addToFav = (e) =>{
+        var favourite_section = document.getElementById('favourite_section');
+        var song_id = favourite_section.getAttribute('data-id');
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+this.state.token
+            },
+            body: JSON.stringify({ song_id: song_id })
+        };
+        const apiUrl = '/api/v1/front/favourite';
+        const api = fetch(apiUrl, requestOptions)
+        .then(res => res.json())
+        .then(res => {
+            if(res){
+                if(res && res.message == 'Unauthenticated.'){
+                    toast.error('token mismatch, please login again.');
+                    localStorage.clear();
+                } else if(res.status && res.status == 1){
+                    if(this.state.favouriteClass == 'heartIcon'){
+                        document.getElementById('favourite_section').classList.remove('heart-red');
+                        this.setState({favouriteClass:''});
+                    } else {
+                        document.getElementById('favourite_section').classList.add('heart-red');
+                        this.setState({favouriteClass:'heartIcon'});
+                    }
+                    
+                    toast.success(res.message);
+                }
+            }
+        })
+        .catch(() => this.setState({ error: true }));
+    }
+    render(){
+    
+    const visibility = this.state.visibility;
+    const playlistVisibility = this.state.playlistVisibility;
     return (
+        
         <div id="audioPlayer" className="player-primary">
+            <ToastContainer />
+            {visibility ? <Helper visibility={visibility}/> : ''}
+            {playlistVisibility ? <Helper playlistVisibility={playlistVisibility}/> : ''}
             {/* Begin | Audio Player Progress */}
             <div id="progress-container">
                 <input type="range" className="amplitude-song-slider" />
@@ -10,7 +76,7 @@ function AudioPlayer() {
             {/* End | Audio Player Progress */}
             {/* Begin | Audio */}
             <div className="audio">
-                <div className="song-image"><img data-amplitude-song-info="cover_art_url" src="../assets/images/cover/small/1.jpg" alt="" /></div>
+                <div className="song-image"><img data-amplitude-song-info="" src="" alt="" /></div>
                 <div className="song-info pl-3">
                     <span className="song-name d-inline-block text-truncate" data-amplitude-song-info="name" />
                     <span className="song-artists d-block text-muted" data-amplitude-song-info="artist" />
@@ -55,14 +121,29 @@ function AudioPlayer() {
                     </button>
                     <ul className="dropdown-menu">
                         <li className="dropdown-item">
-                            <a href="javascript:void(0);" className="dropdown-link">
+                        { this.state.token == null ? (
+                            <a href="javascript:void(0);" className="dropdown-link"  onClick={() => { this.handleModal() }}>
                                 <i className="la la-heart-o" /> <span>Favorite</span>
                             </a>
+                        ) : (
+                            <a href="javascript:void(0);" className="dropdown-link" id='favourite_section' data-id=""  onClick={() => { this.addToFav() }}>
+                                <i className="la la-heart" id={this.state.favouriteClass} /> <span>Favorite</span>
+                            </a>
+                        ) }
+                            
                         </li>
+
                         <li className="dropdown-item">
+                        { this.state.token == null ? (
                             <a href="javascript:void(0);" className="dropdown-link">
                                 <i className="la la-plus" /> <span>Add to Playlist</span>
                             </a>
+                        ) : (
+                            <a href="javascript:void(0);" className="dropdown-link" onClick={() => { this.handlPlaylistModal() }}>
+                                <i className="la la-plus" /> <span>Add to Playlist</span>
+                            </a>
+                        ) }
+                            
                         </li>
                         <li className="dropdown-item">
                             <a href="javascript:void(0);" className="dropdown-link">
@@ -86,7 +167,7 @@ function AudioPlayer() {
             </div>
             {/* End | Audio Info */}
         </div>
-    )
+    )}
 }
 
 export default AudioPlayer

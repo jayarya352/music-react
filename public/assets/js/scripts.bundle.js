@@ -657,6 +657,16 @@ $(function () {
         addAudioInPlayer: function () {
             $(document).on('click', 'a[data-audio]', function () {
                 var audioData = $(this).data('audio');
+                var is_fav = audioData.is_fav;
+                if(is_fav == 1){
+                    var f = document.getElementById('favourite_section')
+                    f.classList.add("heart-red");
+                }
+                var f = document.getElementById('favourite_section')
+                if(f){
+                    f.setAttribute('data-id',audioData.id);
+                }
+                
                 Amplitude.removeSong(0);
                 Amplitude.playNow(audioData);
             })

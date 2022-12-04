@@ -5,13 +5,15 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            token: localStorage.getItem('_token'),
             error: null,
             lists: []
         };
     }
 
+    
     componentDidMount() {
-        const apiUrl = '/api/v1/front/home';
+        const apiUrl = '/api/v1/front/home?access_token='+this.state.token;
         fetch(apiUrl)
         .then(res => res.json())
         .then(res => this.setState({ lists: res }))
@@ -64,7 +66,7 @@ class Home extends Component {
                                 {lists.latest_release && lists.latest_release.map(latest_release => (
                                     <div>
                                         <div className="card" key={latest_release.id}>
-                                        <a href="javascript:void(0);" class="external" data-audio={"{"+'"name"'+':'+ '"'+latest_release.name+'"' +','+ '"artist"'+':'+ '"Arebica Luna"'+','+ '"album"'+':'+ '"Mummy"' +','+ '"url"'+':'+ '"'+latest_release.song_file+'"' +','+ '"cover_art_url"'+':'+ '"'+latest_release.thumbnail_128+'"' + "}"}>
+                                        <a href="javascript:void(0);" class="external" data-audio={"{"+'"name"'+':'+ '"'+latest_release.name+'"' +','+ '"artist"'+':'+ '"Arebica Luna"'+','+ '"album"'+':'+ '"Mummy"' +','+ '"url"'+':'+ '"'+latest_release.song_file+'"' +','+'"is_fav"'+':'+ '"'+latest_release.is_favourite+'"' +','+ '"cover_art_url"'+':'+ '"'+latest_release.thumbnail_128+'"'+','+ '"id"'+':'+ '"'+latest_release.id+'"' + "}"}>
                                             <img class="card-img-top" src={latest_release.thumbnail_320} alt="Card image cap"></img>
                                         </a>
                                         </div>
@@ -122,7 +124,7 @@ class Home extends Component {
                                     {playlists_data.value.map((data, i) => (
                                         <div>
                                             <div className="card" key={i}>
-                                            <a href="javascript:void(0);" class="external" data-audio={"{"+'"name"'+':'+ '"'+data.name+'"' +','+ '"artist"'+':'+ '"Arebica Luna"'+','+ '"album"'+':'+ '"Mummy"' +','+ '"url"'+':'+ '"'+data.song_file+'"' +','+ '"cover_art_url"'+':'+ '"'+data.thumbnail_128+'"' + "}"}>
+                                            <a href="javascript:void(0);" class="external" data-audio={"{"+'"name"'+':'+ '"'+data.name+'"' +','+ '"artist"'+':'+ '"Arebica Luna"'+','+ '"album"'+':'+ '"Mummy"' +','+ '"url"'+':'+ '"'+data.song_file+'"' +','+','+ '"is_fav"'+':'+ '"'+data.is_favourite+'"' + '"cover_art_url"'+':'+ '"'+data.thumbnail_128+'"' + "}"}>
                                                 <img class="card-img-top" src={data.thumbnail_320} alt="Card image cap"></img>
                                             </a>
                                             </div>

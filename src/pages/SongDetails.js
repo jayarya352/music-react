@@ -50,7 +50,7 @@ class SongDetails extends Component {
                                     <i className="la la-star-half-empty"></i>
                                 </div> */}
                                 {/* <span className="badge badge-pill badge-warning mt-3">Premium</span> */}
-                                <div className="mt-4">
+                                <div className="mt-4 amplitude-song-container amplitude-play-pause" data-amplitude-song-index="0" data-amplitude-playlist="special">
                                     {lists.data ? (
                                         <a href="javascript:void(0);" className="btn btn-pill btn-air btn-bold btn-danger external" data-audio={"{" + '"name"' + ':' + '"' + lists.data.song_name + '"' + ',' + '"artist"' + ':' + '"Arebica Luna"' + ',' + '"album"' + ':' + '"Mummy"' + ',' + '"url"' + ':' + '"' + window.location.origin + '/' + lists.data.song_file + '"' + ',' + '"cover_art_url"' + ':' + '""' + "}"}>Play</a>
                                     ) : (
